@@ -1,0 +1,4 @@
+Tabler Icons
+Author: Paweł Kuna (https://github.com/tabler/tabler-icons)
+License: MIT (https://github.com/tabler/tabler-icons/blob/master/LICENSE)
+Converted from the @iconify-json/tabler npm package.

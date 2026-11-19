@@ -1,0 +1,4 @@
+Phosphor
+Author: Phosphor Icons (https://github.com/phosphor-icons/core)
+License: MIT (https://github.com/phosphor-icons/core/blob/main/LICENSE)
+Converted from the @iconify-json/ph npm package.

@@ -1,0 +1,4 @@
+Pixelarticons
+Author: Gerrit Halfmann (https://github.com/halfmage/pixelarticons)
+License: MIT (https://github.com/halfmage/pixelarticons/blob/master/LICENSE)
+Converted from the @iconify-json/pixelarticons npm package.

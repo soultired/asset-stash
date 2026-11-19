@@ -1,0 +1,4 @@
+Pixel Icon
+Author: HackerNoon (https://github.com/hackernoon/pixel-icon-library)
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+Converted from the @iconify-json/pixel npm package.
