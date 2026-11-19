@@ -1,0 +1,56 @@
+name: Build asset stash
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/**'
+      - '.github/workflows/**'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-asset-stash
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pinned asset packages (install scripts disabled)
+        working-directory: tools
+        run: npm install --ignore-scripts --no-audit --no-fund
+
+      - name: Build the stash
+        run: |
+          node tools/export_patterns.mjs \
+            "$PWD/tools/node_modules/hero-patterns/dist/hero-patterns.es.js" \
+            "$PWD/backgrounds/hero-patterns" \
+            "$PWD/tools/.hero_names.json"
+          python3 -I tools/build_pack.py \
+            "$PWD/tools/node_modules" "$PWD" "$PWD/tools/.hero_names.json"
+
+      - name: Sanity check
+        run: |
+          test "$(find icons emoji flags backgrounds sounds fonts css-retro -type f | wc -l)" -gt 20000
+          test -f manifest.js
+
+      - name: Commit result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to commit"
+          else
+            git commit -m "Build asset stash from pinned npm packages"
+            git push
+          fi
